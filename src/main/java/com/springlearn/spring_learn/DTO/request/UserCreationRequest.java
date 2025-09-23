@@ -1,14 +1,15 @@
 package com.springlearn.spring_learn.DTO.request;
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
 public class UserCreationRequest {
 
+    @Size(min = 3, message = "username must at least 3 characters")
     private String username;
 
+    @Size(min = 8, message = "password must at least 8 characters")
     private String password;
 
     private String firstName;
