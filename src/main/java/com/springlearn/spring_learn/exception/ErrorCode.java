@@ -5,6 +5,7 @@ public enum ErrorCode {
     UNCATEGORIZED_ERROR(9999, "uncategorized error"),
     INVALID_KEY(1001, "invalid message key"),
     USERNAME_INVALID(1003, "username must be at least 3 characters"),
+    USER_NOT_EXISTED(1005, "user not exist"),
     PASSWORD_INVALID(1004, "password must be at least 8 characters");
 
     private int code;
