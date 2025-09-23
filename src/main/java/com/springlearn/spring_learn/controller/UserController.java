@@ -1,7 +1,8 @@
 package com.springlearn.spring_learn.controller;
 
-import com.springlearn.spring_learn.DTO.request.UserCreationRequest;
-import com.springlearn.spring_learn.DTO.request.UserUpdateRequest;
+import com.springlearn.spring_learn.dto.request.UserCreationRequest;
+import com.springlearn.spring_learn.dto.request.UserUpdateRequest;
+import com.springlearn.spring_learn.dto.response.ApiResponse;
 import com.springlearn.spring_learn.entity.User;
 import com.springlearn.spring_learn.service.UserService;
 import jakarta.validation.Valid;
@@ -17,8 +18,10 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/users")
-    User createUser(@RequestBody @Valid UserCreationRequest request) {
-        return userService.createRequest(request);
+    ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {
+        ApiResponse<User> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(userService.createRequest(request));
+        return apiResponse;
     }
 
     @GetMapping

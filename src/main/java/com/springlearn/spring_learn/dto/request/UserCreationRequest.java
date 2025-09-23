@@ -1,8 +1,15 @@
-package com.springlearn.spring_learn.DTO.request;
+package com.springlearn.spring_learn.dto.request;
+
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
-public class UserUpdateRequest {
+public class UserCreationRequest {
+
+    @Size(min = 3, message = "USERNAME_INVALID")
+    private String username;
+
+    @Size(min = 8, message = "PASSWORD_INVALID")
     private String password;
 
     private String firstName;
@@ -10,6 +17,14 @@ public class UserUpdateRequest {
     private String lastName;
 
     private LocalDate dob;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getPassword() {
         return password;

@@ -1,8 +1,10 @@
 package com.springlearn.spring_learn.service;
 
-import com.springlearn.spring_learn.DTO.request.UserCreationRequest;
-import com.springlearn.spring_learn.DTO.request.UserUpdateRequest;
+import com.springlearn.spring_learn.dto.request.UserCreationRequest;
+import com.springlearn.spring_learn.dto.request.UserUpdateRequest;
 import com.springlearn.spring_learn.entity.User;
+import com.springlearn.spring_learn.exception.AppException;
+import com.springlearn.spring_learn.exception.ErrorCode;
 import com.springlearn.spring_learn.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,7 @@ public class UserService {
         User user = new User();
 
         if(userRepository.existsByUsername(request.getUsername())) {
-            throw new RuntimeException("user existed");
+            throw new AppException(ErrorCode.USER_EXISTED);
         }
 
         user.setUsername(request.getUsername());
