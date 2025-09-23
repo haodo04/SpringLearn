@@ -1,4 +1,4 @@
-package com.springlearn.spring_learn.controllers;
+package com.springlearn.spring_learn.controller;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
