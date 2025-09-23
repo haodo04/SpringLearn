@@ -1,36 +1,21 @@
 package com.springlearn.spring_learn.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ApiResponse<T> {
-    private int code = 1000;
+    int code = 1000;
 
-    private String message;
+    String message;
 
-    private T result;
+    T result;
 
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public T getResult() {
-        return result;
-    }
-
-    public void setResult(T result) {
-        this.result = result;
-    }
 }

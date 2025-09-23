@@ -1,45 +1,25 @@
 package com.springlearn.spring_learn.dto.request;
 
+import jakarta.validation.constraints.Size;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import java.time.LocalDate;
 
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserUpdateRequest {
-    private String password;
 
-    private String firstName;
+    @Size(min = 8, message = "PASSWORD_INVALID")
+    String password;
 
-    private String lastName;
+    String firstName;
 
-    private LocalDate dob;
+    String lastName;
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public LocalDate getDob() {
-        return dob;
-    }
-
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
-    }
+    LocalDate dob;
 }

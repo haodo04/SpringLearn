@@ -3,19 +3,23 @@ package com.springlearn.spring_learn.controller;
 import com.springlearn.spring_learn.dto.request.UserCreationRequest;
 import com.springlearn.spring_learn.dto.request.UserUpdateRequest;
 import com.springlearn.spring_learn.dto.response.ApiResponse;
+import com.springlearn.spring_learn.dto.response.UserResponse;
 import com.springlearn.spring_learn.entity.User;
 import com.springlearn.spring_learn.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    UserService userService;
 
     @PostMapping("/users")
     ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {
@@ -30,12 +34,12 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    User getUser(@PathVariable Long userId) {
+    UserResponse getUser(@PathVariable Long userId) {
         return userService.getUser(userId);
     }
 
     @PutMapping("/{userId}")
-    User updateUser(@PathVariable Long userId, @RequestBody UserUpdateRequest request) {
+    UserResponse updateUser(@PathVariable Long userId, @RequestBody UserUpdateRequest request) {
         return userService.updateUser(userId, request);
     }
 
