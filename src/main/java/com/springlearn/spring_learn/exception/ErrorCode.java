@@ -3,6 +3,7 @@ package com.springlearn.spring_learn.exception;
 public enum ErrorCode {
     USER_EXISTED(1002, "user existed"),
     UNCATEGORIZED_ERROR(9999, "uncategorized error"),
+    UNAUTHENTICATED_ERROR(1006, "unauthenticated error"),
     INVALID_KEY(1001, "invalid message key"),
     USERNAME_INVALID(1003, "username must be at least 3 characters"),
     USER_NOT_EXISTED(1005, "user not exist"),

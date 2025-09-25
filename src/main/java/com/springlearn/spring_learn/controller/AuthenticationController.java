@@ -1,5 +1,6 @@
 package com.springlearn.spring_learn.controller;
 
+import com.nimbusds.jose.JOSEException;
 import com.springlearn.spring_learn.dto.request.AuthenticationRequest;
 import com.springlearn.spring_learn.dto.response.ApiResponse;
 import com.springlearn.spring_learn.dto.response.AuthenticationResponse;
@@ -20,12 +21,10 @@ public class AuthenticationController {
     AuthenticationService authenticationService;
 
     @PostMapping("/login")
-    ApiResponse<AuthenticationResponse> authenticate (@RequestBody AuthenticationRequest request) {
-        boolean result = authenticationService.authenticate(request);
+    ApiResponse<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) throws JOSEException {
+        var result = authenticationService.authenticate(request);
         return ApiResponse.<AuthenticationResponse>builder()
-                .result(AuthenticationResponse.builder()
-                        .authenticated(result)
-                        .build())
+                .result(result)
                 .build();
     }
 }
