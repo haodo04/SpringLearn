@@ -10,6 +10,8 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,30 +19,42 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
 public class UserController {
 
     UserService userService;
 
     @PostMapping("/users")
-    ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {
-        ApiResponse<User> apiResponse = new ApiResponse<>();
-        apiResponse.setResult(userService.createRequest(request));
+    ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreationRequest request) {
+        ApiResponse<UserResponse> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(userService.createUser(request));
         return apiResponse;
     }
 
-    @GetMapping
-    List<User> getUsers() {
-        return userService.getUsers();
+    @GetMapping("/users")
+    ApiResponse<List<User>> getUsers() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info("Username: {}", authentication.getName());
+        authentication.getAuthorities().forEach(grantedAuthority ->
+                log.info(grantedAuthority.getAuthority()));
+        return ApiResponse.<List<User>>builder()
+                .result(userService.getUsers())
+                .build();
+
     }
 
     @GetMapping("/{userId}")
-    UserResponse getUser(@PathVariable Long userId) {
-        return userService.getUser(userId);
+    ApiResponse<UserResponse> getUser(@PathVariable Long userId) {
+        return ApiResponse.<UserResponse>builder()
+                .result(userService.getUser(userId))
+                .build();
     }
 
     @PutMapping("/{userId}")
-    UserResponse updateUser(@PathVariable Long userId, @RequestBody UserUpdateRequest request) {
-        return userService.updateUser(userId, request);
+    ApiResponse<UserResponse> updateUser(@PathVariable Long userId, @RequestBody UserUpdateRequest request) {
+        return ApiResponse.<UserResponse>builder()
+                .result(userService.updateUser(userId, request))
+                .build();
     }
 
     @DeleteMapping("/{userId}")
