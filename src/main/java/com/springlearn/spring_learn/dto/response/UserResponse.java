@@ -1,5 +1,6 @@
 package com.springlearn.spring_learn.dto.response;
 
+import com.springlearn.spring_learn.entity.Role;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -23,5 +24,5 @@ public class UserResponse {
 
     LocalDate dob;
 
-    Set<String> roles;
+    Set<Role> roles;
 }
