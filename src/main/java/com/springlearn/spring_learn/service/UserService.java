@@ -8,6 +8,7 @@ import com.springlearn.spring_learn.enums.Role;
 import com.springlearn.spring_learn.exception.AppException;
 import com.springlearn.spring_learn.exception.ErrorCode;
 import com.springlearn.spring_learn.mapper.UserMapper;
+import com.springlearn.spring_learn.repository.RoleRepository;
 import com.springlearn.spring_learn.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,8 @@ import java.util.Optional;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 public class UserService {
-
     UserRepository userRepository;
+    RoleRepository roleRepository;
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
 
@@ -55,7 +56,7 @@ public class UserService {
         return userMapper.toUserResponse(user);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('APPROVE_POST')")
     public List<User> getUsers() {
         log.info("In method get Users");
         return userRepository.findAll();
@@ -71,7 +72,9 @@ public class UserService {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("user not found"));
 
         userMapper.updateUser(user, request);
-
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        var roles = roleRepository.findAllById(request.getRoles());
+        user.setRoles(new HashSet<>(roles));
         return userMapper.toUserResponse(userRepository.save(user));
     }
 

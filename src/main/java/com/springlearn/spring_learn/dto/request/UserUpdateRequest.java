@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Data
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserUpdateRequest {
+    String username;
 
     @Size(min = 8, message = "PASSWORD_INVALID")
     String password;
@@ -22,4 +24,6 @@ public class UserUpdateRequest {
     String lastName;
 
     LocalDate dob;
+
+    List<String> roles;
 }
