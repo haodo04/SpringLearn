@@ -8,6 +8,7 @@ import com.nimbusds.jwt.SignedJWT;
 import com.springlearn.spring_learn.dto.request.AuthenticationRequest;
 import com.springlearn.spring_learn.dto.request.IntrospectRequest;
 import com.springlearn.spring_learn.dto.request.LogoutRequest;
+import com.springlearn.spring_learn.dto.request.RefreshRequest;
 import com.springlearn.spring_learn.dto.response.AuthenticationResponse;
 import com.springlearn.spring_learn.dto.response.IntrospectResponse;
 import com.springlearn.spring_learn.entity.InvalidateToken;
@@ -86,6 +87,31 @@ public class AuthenticationService {
                 .build();
 
         invalidateTokenRepository.save(invalidateToken);
+    }
+
+    public AuthenticationResponse refreshToken(RefreshRequest request) throws ParseException, JOSEException {
+        var signedJWT = verifyToken(request.getToken());
+
+        var jit = signedJWT.getJWTClaimsSet().getJWTID();
+        var expiryTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+
+        InvalidateToken invalidateToken = InvalidateToken.builder()
+                .id(jit)
+                .expiryTime(expiryTime)
+                .build();
+
+        invalidateTokenRepository.save(invalidateToken);
+
+        var username = signedJWT.getJWTClaimsSet().getSubject();
+
+        var user = userRepository.findByUsername(username).orElseThrow(
+                () -> new AppException(ErrorCode.UNAUTHENTICATED_ERROR)
+        );
+        var token = generateToken(user);
+        return AuthenticationResponse.builder()
+                .token(token)
+                .authenticated(true)
+                .build();
     }
 
     private SignedJWT verifyToken(String token) throws JOSEException, ParseException {
