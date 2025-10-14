@@ -1,5 +1,6 @@
 package com.springlearn.spring_learn.dto.request;
 
+import com.springlearn.spring_learn.validator.DobConstraint;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -23,6 +24,7 @@ public class UserCreationRequest {
 
     String lastName;
 
+    @DobConstraint(min = 2, message = "INVALID_DOB")
     LocalDate dob;
 
 }
