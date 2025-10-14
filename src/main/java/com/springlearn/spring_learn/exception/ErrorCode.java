@@ -11,11 +11,11 @@ public enum ErrorCode {
     UNCATEGORIZED_ERROR(9999, "uncategorized", HttpStatus.INTERNAL_SERVER_ERROR),
     UNAUTHENTICATED_ERROR(1006, "unauthenticated", HttpStatus.UNAUTHORIZED),
     INVALID_KEY(1001, "invalid message key", HttpStatus.BAD_REQUEST),
-    USERNAME_INVALID(1003, "username must be at least 3 characters", HttpStatus.BAD_REQUEST),
+    USERNAME_INVALID(1003, "username must be at least {min} characters", HttpStatus.BAD_REQUEST),
     USER_NOT_EXISTED(1005, "user not exist", HttpStatus.NOT_FOUND),
-    PASSWORD_INVALID(1004, "password must be at least 8 characters", HttpStatus.BAD_REQUEST),
+    PASSWORD_INVALID(1004, "password must be at least {min} characters", HttpStatus.BAD_REQUEST),
     UNAUTHORIZED(1007, "You do not have permission", HttpStatus.FORBIDDEN),
-    INVALID_DOB(1008, "Invalid date of birth", HttpStatus.BAD_REQUEST);
+    INVALID_DOB(1008, "Your age must be at least {min}", HttpStatus.BAD_REQUEST);
 
     private int code;
 
