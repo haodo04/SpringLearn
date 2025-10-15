@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/spring_learn?useSSL=false&allowPublicKeyRetrieval=true
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driverClassname: com.mysql.cj.jdbc.Driver
     username: root
     password: 170804
   jpa:
