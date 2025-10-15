@@ -1,17 +1,14 @@
 package com.springlearn.spring_learn.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.springlearn.spring_learn.dto.request.UserCreationRequest;
 import com.springlearn.spring_learn.dto.response.UserResponse;
 import com.springlearn.spring_learn.service.UserService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +20,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDate;
+
+import static org.mockito.Mockito.when;
 
 @Slf4j
 @SpringBootTest
@@ -68,7 +67,7 @@ public class UserControllerTest {
         objectMapper.registerModule(new JavaTimeModule());
         String content = objectMapper.writeValueAsString(request);
 
-        Mockito.when(userService.createUser(ArgumentMatchers.any()))
+        when(userService.createUser(ArgumentMatchers.any()))
                         .thenReturn(userResponse);
 
         // when, then
@@ -102,4 +101,5 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("message")
                         .value("username must be at least 4 characters"));
     }
+
 }
