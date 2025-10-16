@@ -10,7 +10,7 @@ export default function Home() {
 
   const getUserDetails = async (accessToken) => {
     const response = await fetch(
-      "http://localhost:8080/identity/users/my-info",
+      "http://localhost:8080/myInfo",
       {
         method: "GET",
         headers: {
