@@ -1,7 +1,6 @@
 package com.springlearn.spring_learn.service;
 
 import com.springlearn.spring_learn.dto.request.UserCreationRequest;
-import com.springlearn.spring_learn.dto.response.UserResponse;
 import com.springlearn.spring_learn.entity.User;
 import com.springlearn.spring_learn.exception.AppException;
 import com.springlearn.spring_learn.repository.UserRepository;
@@ -15,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.mockito.Mockito;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -28,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestPropertySource("/test.properties")
-public class UserServiceTest {
+class UserServiceTest {
 
     @Autowired
     private UserService userService;
@@ -37,7 +35,7 @@ public class UserServiceTest {
     private UserRepository userRepository;
 
     private UserCreationRequest request;
-    private UserResponse userResponse;
+
     private User user;
     private LocalDate dob;
 
@@ -53,13 +51,7 @@ public class UserServiceTest {
                 .dob(dob)
                 .build();
 
-        userResponse = UserResponse.builder()
-                .id(20L)
-                .username("john")
-                .firstName("Doe")
-                .lastName("John")
-                .dob(dob)
-                .build();
+
 
         user = User.builder()
                 .id(20L)

@@ -171,7 +171,7 @@
 											<minimum>0.70</minimum>
 										</limit>
 									</limits>
-								</rule>
+								</rule> 
 							</rules>
 						</configuration>
 					</execution>
