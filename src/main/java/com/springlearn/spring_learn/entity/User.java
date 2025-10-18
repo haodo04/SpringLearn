@@ -2,7 +2,6 @@ package com.springlearn.spring_learn.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -24,16 +23,12 @@ public class User {
     @Column(name = "username", unique = true, columnDefinition = "VARCHAR(255) COLLATE utf8mb4_unicode_ci")
     String username;
 
-    @NotBlank
     String password;
 
-    @NotBlank
     String firstName;
 
-    @NotBlank
     String lastName;
 
-    @NotBlank
     LocalDate dob;
 
     @ManyToMany
