@@ -2,6 +2,7 @@ package com.springlearn.spring_learn.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -25,10 +26,13 @@ public class User {
 
     String password;
 
+    @NotBlank(message = "firstname must be not blank")
     String firstName;
 
+    @NotBlank(message = "lastname must be not blank")
     String lastName;
 
+    @NotBlank(message = "dob must be not blank")
     LocalDate dob;
 
     @ManyToMany
