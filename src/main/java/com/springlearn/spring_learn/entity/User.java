@@ -25,14 +25,11 @@ public class User {
     String username;
 
     String password;
-
-    @NotBlank(message = "firstname must be not blank")
+    
     String firstName;
 
-    @NotBlank(message = "lastname must be not blank")
     String lastName;
 
-    @NotBlank(message = "dob must be not blank")
     LocalDate dob;
 
     @ManyToMany
